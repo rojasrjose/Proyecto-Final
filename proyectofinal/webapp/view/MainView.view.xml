@@ -1,7 +1,48 @@
 <mvc:View controllerName="proyectofinal.proyectofinal.controller.MainView"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
-    </Page>
+          xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+          xmlns="sap.m"
+          xmlns:layout="sap.ui.layout">
+    <Page title="{i18n>title}">
+       <Panel headerText="{i18n>groupTilesEmployees}" 
+              expandable="true"
+              expanded="true" >
+            <layout:VerticalLayout class="sapUiResponsiveMargin">
+                    <Title 
+                        titleStyle="H2"                  
+                        class="sapUiTinyMarginBegin"/>
+                    <layout:HorizontalLayout allowWrapping="true">
+                        <GenericTile
+                            class="sapUiTinyMarginBegin sapUiTinyMarginTop"                                                
+                            headerImage="sap-icon://add-employee"
+                            press="createEmployees">   
+                            <TileContent footer="{i18n>createEmployees}"/>
+                        </GenericTile>   
+                        <GenericTile
+                            class="sapUiTinyMarginBegin sapUiTinyMarginTop"                    
+                            headerImage="sap-icon://employee-lookup"
+                            press="viewEmployees">      
+                            <TileContent footer="{i18n>viewEmployees}"/>          
+                        </GenericTile>
+                    </layout:HorizontalLayout>
+                </layout:VerticalLayout>
+        </Panel>
+        <Panel headerText="{i18n>groupTilesOrders}"    
+               expandable="true"
+               expanded="true">
+             <layout:VerticalLayout class="sapUiResponsiveMargin">
+                    <Title
+                        titleStyle="H2"                                                                    
+                        class="sapUiTinyMarginBegin"/>
+                    <layout:HorizontalLayout allowWrapping="true">
+                        <GenericTile
+                            class="sapUiTinyMarginBegin sapUiTinyMarginTop"                                                
+                            headerImage="sap-icon://signature"
+                            press="signOrders">   
+                            <TileContent footer="{i18n>signOrders}"/>
+                        </GenericTile>                        
+                    </layout:HorizontalLayout>
+            </layout:VerticalLayout>
+        </Panel>
+     </Page>
+
 </mvc:View>

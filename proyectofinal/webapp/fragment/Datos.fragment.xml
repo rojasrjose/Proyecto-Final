@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"    
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Panel>
+        <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoDataEmployees}" showIcon="true"/>
+        <form:SimpleForm editable="true" >
+            <Label labelFor="inputFirstName" text="{i18n>textFirstName}" required="true"/>
+            <Input maxLength="40" value="{oDataEmployees>FirstName}"/>
+            <Label labelFor="inputLastName" text="{i18n>textLastName}" required="true"/>
+            <Input maxLength="40" value="{oDataEmployees>LastName}" />
+            <Label labelFor="inputDni" text="{i18n>textDni}" required="true"/>
+            <Input maxLength="20" value="{oDataEmployees>Dni}"/>            
+            <Label labelFor="inputAmount" text="{i18n>textAmount}"/>
+		    <Slider enableTickmarks="true" min="12000" max="80000" step="1000" value="24000" class="sapUiLargeMarginBottom" width="100%"/>            
+            <Label labelFor="inputDateCreation" text="{i18n>textDateCreation}" required="true"/>
+            <DatePicker dateValue="{oDataEmployees>CreationDate}"  change="updateCreationDate"/>
+        </form:SimpleForm>            
+    </Panel>
+</core:FragmentDefinition>

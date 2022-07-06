@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Panel>
+        <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoAdicEmployees}" showIcon="true"/>
+        <form:SimpleForm editable="true" layout="ResponsiveGridLayout" class="sapUiSmallMarginBottom">
+            <VBox >
+                <Label text="{i18n>textComments}" />
+                <TextArea value="{oDataEmployees>Comments}" growing="true" width="100%"/>
+            </VBox>
+        </form:SimpleForm>
+
+        <UploadCollection id="uploadCollection"
+                                  maximumFilenameLength="55"
+                                  maximumFileSize="10"
+                                  multiple="true"
+                                  sameFilenameAllowed="true"
+                                  instantUpload="true"
+                                  uploadUrl="sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
+                                  change="onFileChange"
+                                  uploadComplete="onFileUploadComplete"
+                                  beforeUploadStarts="onFileBeforeUploadStarts"
+                                  fileDeleted="onFileDeleted"/>
+    </Panel>
+</core:FragmentDefinition>

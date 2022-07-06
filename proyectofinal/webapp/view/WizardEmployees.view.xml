@@ -1,0 +1,42 @@
+   <mvc:View controllerName="proyectofinal.proyectofinal.controller.WizardEmployees"  
+   	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+        <NavContainer id="idWizardNavCont" >
+            <pages>
+                <Page id="idWizardContentPage" title="{i18n>wizardTitle}" showHeader="true">
+                    <content>
+                        <Wizard id="createEmployees" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+                                complete="onPressReview" finishButtonText="Review" showNextButton="true">
+
+                            <WizardStep id="typeEmployees" title="{i18n>typeEmployees}" validated="false">
+                                <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoTypeEmployees}" showIcon="true"/> 
+
+                                <HBox alignItems="Center" justifyContent="Center" width="100%">                                    
+									<Button text="{i18n>typeInterno}" press="onMoveStepsDatos" />
+                                    <Button text="{i18n>typeAutonomo}" press="onMoveStepsDatos" />
+                                    <Button text="{i18n>typeGerente}" press="onMoveStepsDatos" />                 
+								</HBox>
+
+                            </WizardStep>
+                            <WizardStep id="dataEmployees" title="{i18n>dataEmployees}" validated="true">                                
+                                <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.Datos" type="XML"/>
+                            </WizardStep>
+                            <WizardStep id="infoEmployees" title="{i18n>infoEmployees}" validated="true">                                
+                                <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.InformacionAdicional" type="XML"/>
+                            </WizardStep>
+                        </Wizard>
+                    </content>
+                     <footer>
+                        <Toolbar>
+                            <ToolbarSpacer />
+                                <Button text="{i18n>cancelCreation}" press="onCancelWizard" class="sapUiTinyMarginBegin"/>
+                            </Toolbar>
+                    </footer>
+                </Page>
+            </pages>
+        </NavContainer> 
+</mvc:View>    
+
