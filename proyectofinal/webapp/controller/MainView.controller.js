@@ -1,24 +1,22 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
+     * @param {typeof sap.ui.model.json.JSONModel} JSONModel
      */    
 
-    function (Controller) {
+    function (Controller, JSONModel) {
         'use strict';
 
-         function on_Init() {          
+         function on_Init() {         
+             
         };
 
-        function createEmployees(){
+        function createEmployees(){           
             
-            //var orderID = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            
-            //oRouter.navTo("RouteOrderDetails", {
-              //  OrderId : orderID
-            //});
             oRouter.navTo("RouteWizard");
         };
 

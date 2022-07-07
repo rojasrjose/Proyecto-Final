@@ -69,7 +69,7 @@
           "bundleName": "proyectofinal.proyectofinal.i18n.i18n"
         }
       },
-      "oDataEmployees": {
+      "dataEmployeesModel": {
         "type": "sap.ui.model.odata.v2.ODataModel",  
         "dataSource": "ZEMPLOYEES_SRV",
         "preload": true,

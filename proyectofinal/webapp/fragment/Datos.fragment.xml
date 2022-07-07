@@ -4,16 +4,29 @@
     <Panel>
         <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoDataEmployees}" showIcon="true"/>
         <form:SimpleForm editable="true" >
-            <Label labelFor="inputFirstName" text="{i18n>textFirstName}" required="true"/>
-            <Input maxLength="40" value="{oDataEmployees>FirstName}"/>
-            <Label labelFor="inputLastName" text="{i18n>textLastName}" required="true"/>
-            <Input maxLength="40" value="{oDataEmployees>LastName}" />
-            <Label labelFor="inputDni" text="{i18n>textDni}" required="true"/>
-            <Input maxLength="20" value="{oDataEmployees>Dni}"/>            
-            <Label labelFor="inputAmount" text="{i18n>textAmount}"/>
-		    <Slider enableTickmarks="true" min="12000" max="80000" step="1000" value="24000" class="sapUiLargeMarginBottom" width="100%"/>            
-            <Label labelFor="inputDateCreation" text="{i18n>textDateCreation}" required="true"/>
-            <DatePicker dateValue="{oDataEmployees>CreationDate}"  change="updateCreationDate"/>
+            <Label id="labelFirstName" labelFor="inputFirstName" text="{i18n>textFirstName}" required="true" />
+            <Input id="inputFirstName" maxLength="40"/>
+            <Label id="labelLastName" labelFor="inputLastName" text="{i18n>textLastName}" required="true"/>
+            <Input id="inputLastName" maxLength="40"/>            
+            <Label id="labelDni" labelFor="inputDni" required="true" visible="true" 
+                   text="{= ${dataEmployeesModel>/Type}==='1' ? ${i18n>textCif} 
+                          : ${i18n>textDni}}"/>
+            <Input id="inputDni" maxLength="20" liveChange=".onValidateDni"/>                        
+            <Label id="labelAmount" labelFor="inputAmount" visible="true"                   
+                   text="{= ${dataEmployeesModel>/Type}==='1' ? ${i18n>textAmountP} 
+                          : ${i18n>textAmountS}}"/>
+		    <Slider id="inputAmount" enableTickmarks="true" class="sapUiLargeMarginBottom" width="100%"
+                    min="{= ${dataEmployeesModel>/Type}==='0' ? 12000 : 
+                            ${dataEmployeesModel>/Type}==='1' ? 100 : 50000}"
+                    max="{= ${dataEmployeesModel>/Type}==='0' ? 80000 : 
+                            ${dataEmployeesModel>/Type}==='1' ? 2000  : 200000}"   
+                    value="{= ${dataEmployeesModel>/Type}==='0' ? 24000 : 
+                              ${dataEmployeesModel>/Type}==='1' ? 400 : 70000}"
+                    step="{= ${dataEmployeesModel>/Type}==='0' ? 1000 : 
+                             ${dataEmployeesModel>/Type}==='1' ? 80   : 10000}" />     
+
+            <Label id="labelDaeCreation" labelFor="inputDateCreation" text="{i18n>textDateCreation}" required="true"/>
+            <DatePicker id="inputDateCreation" change="updateCreationDate"/>
         </form:SimpleForm>            
     </Panel>
 </core:FragmentDefinition>

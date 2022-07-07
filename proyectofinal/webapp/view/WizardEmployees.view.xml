@@ -15,9 +15,9 @@
                                 <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoTypeEmployees}" showIcon="true"/> 
 
                                 <HBox alignItems="Center" justifyContent="Center" width="100%">                                    
-									<Button text="{i18n>typeInterno}" press="onMoveStepsDatos" />
-                                    <Button text="{i18n>typeAutonomo}" press="onMoveStepsDatos" />
-                                    <Button text="{i18n>typeGerente}" press="onMoveStepsDatos" />                 
+									<Button id="btnTypeInterno" text="{i18n>typeInterno}"   press="onMoveStepsDatos" />
+                                    <Button id="btnTypeAutonomo" text="{i18n>typeAutonomo}" press="onMoveStepsDatos" />
+                                    <Button id="btnTypeGerente" text="{i18n>typeGerente}"   press="onMoveStepsDatos" />                 
 								</HBox>
 
                             </WizardStep>
