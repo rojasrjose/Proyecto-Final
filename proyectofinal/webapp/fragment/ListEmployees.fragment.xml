@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Panel>
+        <List items="{dataEmployeesModel>/Users}" class="sapUiResponsiveMarginEnd">
+            <items>
+                <StandardListItem title="{dataEmployeesModel>FirstName} {dataEmployeesModel>LastName}"
+                                  description="{dataEmployeesModel>Dni}" type="Active" press="showEmployees"/>
+            </items>        
+        </List>
+    </Panel>
+</core:FragmentDefinition>    

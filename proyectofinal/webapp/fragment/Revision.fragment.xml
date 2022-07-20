@@ -1,0 +1,100 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"    
+    xmlns="sap.m">
+    
+    <Panel>
+        <form:Form id="FormRevisionType" editable="false">
+            <form:title>
+                <core:Title id="typeEmployeesV" text="{i18n>typeTEmployees}" />
+            </form:title>
+            <form:layout>
+                <form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+            </form:layout>
+            <form:formContainers>
+                <form:FormContainer>
+                    <form:FormElement label="{i18n>typeEmployees}">
+                        <form:fields>                        
+                            <Text text="{= ${dataEmployeesModel>/Type}==='0' ? ${i18n>typeInterno} :
+                                         ${dataEmployeesModel>/Type}==='1' ? ${i18n>typeAutonomo}  : ${i18n>typeGerente}}"/>                            
+              
+                        </form:fields>                         
+       
+                        
+                            <Link text="{i18n>textEditar}" press="handleEditPress" />	                                  
+                    </form:FormElement>
+                </form:FormContainer>                
+            </form:formContainers>
+        </form:Form>
+
+        <form:Form id="FormRevisionDatos" editable="false">
+            <form:title>
+                <core:Title id="dataEmployeesV" text="{i18n>dataTEmployees}" />
+            </form:title>
+            <form:layout>
+                <form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+            </form:layout>
+
+            <form:formContainers>
+                <form:FormContainer>
+
+                    <form:FormElement label="{i18n>textFirstName}">
+                        <form:fields>
+                            <Text  id="firstNameText" text="{dataEmployeesModel>/FirstName}" />
+                        </form:fields>
+                    </form:FormElement>
+                    
+                    <form:FormElement label="{i18n>textLastName}">
+                        <form:fields>
+                            <Text id="lastNameText" text="{dataEmployeesModel>/LastName}"  />
+                        </form:fields>
+                    </form:FormElement>
+
+                    <form:FormElement label="{= ${dataEmployeesModel>/Type}==='1' ? ${i18n>textCif} : ${i18n>textDni}}">
+                        <form:fields>
+                            <Text id="dniText" text="{dataEmployeesModel>/Dni}" />
+                        </form:fields>
+                    </form:FormElement>
+
+                    <form:FormElement label="{= ${dataEmployeesModel>/Type}==='1' ? ${i18n>textAmountP} : ${i18n>textAmountS}}">
+                        <form:fields>
+                            <Text id="amountText" text="{dataEmployeesModel>/Amount}" />
+                        </form:fields>
+                    </form:FormElement>
+
+                    <form:FormElement label="{i18n>textDateCreation}">
+                        <form:fields>
+                            <Text id="dateCreationText" text="{dataEmployeesModel>/DataCreation}"/>
+                        </form:fields>
+                        <Link text="{i18n>textEditar}" press="handleEditPress" />	
+                    </form:FormElement>
+
+                </form:FormContainer>
+            </form:formContainers>
+        </form:Form>
+
+        <form:Form id="FormRevisionInfAdic" editable="false">
+            <form:title>
+                <core:Title id="infAdicEmployeesV" text="{i18n>infoTEmployees}" />
+            </form:title>
+            <form:layout>
+                <form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+            </form:layout>
+            <form:formContainers>
+                <form:FormContainer>
+                    <form:FormElement label="{i18n>textComments}">
+                        <form:fields>                        
+                            <Text id="infoComentText" text="{dataEmployeesModel>/Comments}"  />
+                        </form:fields>
+                    </form:FormElement>   
+                    <form:FormElement label="{i18n>textDocuments}">
+                        <form:fields>                        
+                            <Text id="infoDocumentText" text="{}"  />
+                        </form:fields>
+                        <Link text="{i18n>textEditar}" press="handleEditPress" />	
+                    </form:FormElement>                                      
+                </form:FormContainer>
+            </form:formContainers>
+        </form:Form>
+
+    </Panel>
+</core:FragmentDefinition>

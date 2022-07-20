@@ -19,8 +19,7 @@
       "ZEMPLOYEES_SRV": {
         "uri": "/sap/opu/odata/sap/ZEMPLOYEES_SRV/",
         "type": "OData",
-        "settings": {
-          "annotations": [],
+        "settings": {          
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
@@ -114,6 +113,20 @@
             "target": [
               "TargetWizardEmployees"
             ]
+          },
+          {
+            "name": "RouteRevision",
+            "pattern": "Revision",
+            "target": [
+              "TargetRevision"
+            ]
+          },
+          {
+            "name": "RouteViewEmployees",
+            "pattern": "ViewEmployees",
+            "target": [
+              "TargetViewEmployees"
+            ]
           }
       ],
       "targets": {
@@ -127,7 +140,15 @@
         "TargetWizardEmployees": {
             "viewType": "XML",
             "viewName": "WizardEmployees"
-        }
+        },
+        "TargetRevision": {
+            "viewType": "XML",
+            "viewName": "Revision"
+        },
+        "TargetViewEmployees": {
+            "viewType": "XML",
+            "viewName": "ViewEmployees"
+        }                   
       }
     },
     "rootView": {

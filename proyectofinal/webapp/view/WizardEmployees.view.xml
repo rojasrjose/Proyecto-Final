@@ -9,9 +9,9 @@
                 <Page id="idWizardContentPage" title="{i18n>wizardTitle}" showHeader="true">
                     <content>
                         <Wizard id="createEmployees" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
-                                complete="onPressReview" finishButtonText="Review" showNextButton="true">
+                                complete="onPressReview" showNextButton="true"  finishButtonText="Review">
 
-                            <WizardStep id="typeEmployees" title="{i18n>typeEmployees}" validated="false">
+                            <WizardStep id="typeEmployees" title="{i18n>typeEmployees}" validated="false" >
                                 <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoTypeEmployees}" showIcon="true"/> 
 
                                 <HBox alignItems="Center" justifyContent="Center" width="100%">                                    
@@ -21,14 +21,14 @@
 								</HBox>
 
                             </WizardStep>
-                            <WizardStep id="dataEmployees" title="{i18n>dataEmployees}" validated="true">                                
+                            <WizardStep id="dataEmployees" title="{i18n>dataEmployees}" validated="true" activate="datosValidation">                                
                                 <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.Datos" type="XML"/>
                             </WizardStep>
-                            <WizardStep id="infoEmployees" title="{i18n>infoEmployees}" validated="true">                                
+                            <WizardStep id="infoEmployees" title="{i18n>infoEmployees}" validated="true"  activate="additionalInfoValidation">                                
                                 <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.InformacionAdicional" type="XML"/>
                             </WizardStep>
-                        </Wizard>
-                    </content>
+                        </Wizard>   
+                     </content>
                      <footer>
                         <Toolbar>
                             <ToolbarSpacer />

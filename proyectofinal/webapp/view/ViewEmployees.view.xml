@@ -1,0 +1,18 @@
+<mvc:View controllerName="proyectofinal.proyectofinal.controller.ViewEmployees"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f">
+    <Page showHeader="false">
+        <content>
+            <f:FlexibleColumnLayout backgroundDesign="Translucent" layout="TwoColumnsMidExpanded">
+                <f:beginColumnPages>
+                    <mvc:XMLView id="masterEmployeesView" viewName="proyectofinal.proyectofinal.view.MasterEmployees"/>
+                </f:beginColumnPages>              
+                <f:midColumnPages>
+                    <mvc:XMLView id="employeesDetailsView" viewName="proyectofinal.proyectofinal.view.EmployeesDetails"/>
+                </f:midColumnPages>
+            </f:FlexibleColumnLayout>
+        </content>
+    </Page>    
+</mvc:View>          

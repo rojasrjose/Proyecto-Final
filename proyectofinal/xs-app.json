@@ -3,10 +3,9 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/sap/(.*)$",
-      "target": "/sap/$1",
+      "source": "^/sap/opu/odata/sap/ZEMPLOYEES_SRV/",      
       "destination": "logaligroupERP",
-      "authenticationType": "xsuaa",
+      "authenticationType": "none",
       "csrfProtection": false
     },
     {
@@ -25,7 +24,7 @@
       "source": "^(.*)$",
       "target": "$1",
       "service": "html5-apps-repo-rt",
-      "authenticationType": "xsuaa"
+      "authenticationType": "none"
     }
   ]
 }

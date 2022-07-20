@@ -10,8 +10,8 @@ sap.ui.define([
     function (Controller, JSONModel) {
         'use strict';
 
-         function on_Init() {         
-             
+         function on_Init() {                   
+           
         };
 
         function createEmployees(){           
@@ -20,9 +20,16 @@ sap.ui.define([
             oRouter.navTo("RouteWizard");
         };
 
+        function viewEmployees(){
+            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo("RouteViewEmployees");
+
+        };
+
         return Controller.extend("proyectofinal.proyectofinal.controller.MainView", {
             onInit: on_Init,
-            createEmployees: createEmployees
+            createEmployees: createEmployees,
+            viewEmployees: viewEmployees
             
         });
     });
