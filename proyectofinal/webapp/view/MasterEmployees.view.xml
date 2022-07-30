@@ -1,14 +1,28 @@
 <mvc:View controllerName="proyectofinal.proyectofinal.controller.MasterEmployees"
-          xmlns:mvc="sap.ui.core.mvc"
-          displayBlock="true"
-          xmlns="sap.m"
-          xmlns:core="sap.ui.core">
-          <Page>
-                <content>
-                    <HBox wrap="Wrap">                                                
-                        <Button id="btnFilter" text= "filter" icon="sap-icon://search" press="onFilter" class="sapUiSmallMarginEnd"/>                                                    
-                    </HBox>      
-                    <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.ListEmployees" type="XML"/>                                  
-                </content>
-        </Page>
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout">
+    <Page  backgroundDesign= "List">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://nav-back" type="Default" press=".onPressBack"/>
+                    <SearchField width="80%" search=".onFilterEmployees" placeholder="{i18n>textSearch}"/>
+                </contentLeft>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox>
+                <List id="employeesList" items="{dataEmployeesModel>/Users}" class="sapUiResponsiveMarginEnd">
+                    <items>
+                        <StandardListItem title="{dataEmployeesModel>FirstName} {dataEmployeesModel>LastName}" 
+                                          description="{dataEmployeesModel>Dni}" 
+                                          type="Active" 
+                                          press="showEmployees"/>
+                    </items>
+                </List>
+            </VBox>
+        </content>
+    </Page>
 </mvc:View>    

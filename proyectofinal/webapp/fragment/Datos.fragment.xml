@@ -4,33 +4,32 @@
     <Panel>        
         <form:SimpleForm editable="true" >
             <Label id="labelFirstName" labelFor="inputFirstName" text="{i18n>textFirstName}" required="true" />
-            <Input id="inputFirstName" maxLength="40" />
+            <Input id="inputFirstName" value="{employeesModel>/FirstName}" change="dataValidation" valueState="{employeesModel>/FirstNameState}"  />
 
             <Label id="labelLastName" labelFor="inputLastName" text="{i18n>textLastName}" required="true"/>
-            <Input id="inputLastName" maxLength="40" />            
+            <Input id="inputLastName" value="{employeesModel>/LastName}" change="dataValidation" valueState="{employeesModel>/LastNameState}"/>            
             
             <Label id="labelDni" labelFor="inputDni" required="true" visible="true"  
-                   text="{= ${jsonModelTipo>/valueTipo}==='1' ? ${i18n>textCif} 
+                   text="{= ${employeesModel>/Type}==='1' ? ${i18n>textCif} 
                           : ${i18n>textDni}}"/>
-            <Input id="inputDni" maxLength="20" liveChange=".onValidateDni"  
-                   valueState="{jsonModelTipo>/DniState}"/>                        
+            <Input id="inputDni" maxLength="20" value="{employeesModel>/Dni}" liveChange="dataValidation"  
+                   valueState="{employeesModel>/DniState}"/>                        
             
             <Label id="labelAmount" labelFor="inputAmount" visible="true"                   
-                   text="{= ${jsonModelTipo>/valueTipo}==='1' ? ${i18n>textAmountP} 
+                   text="{= ${employeesModel>/Type}==='1' ? ${i18n>textAmountP} 
                           : ${i18n>textAmountS}}"/>
 		    <Slider id="inputAmount" enableTickmarks="true" class="sapUiLargeMarginBottom" width="100%"
-                    min="{= ${jsonModelTipo>/valueTipo}==='0' ? 12000 : 
-                            ${jsonModelTipo>/valueTipo}==='1' ? 100 : 50000}"
-                    max="{= ${jsonModelTipo>/valueTipo}==='0' ? 80000 : 
-                            ${jsonModelTipo>/valueTipo}==='1' ? 2000  : 200000}"   
-                    value="{= ${jsonModelTipo>/valueTipo}==='0' ? 24000 : 
-                              ${jsonModelTipo>/valueTipo}==='1' ? 400 : 70000}"
-                    step="{= ${jsonModelTipo>/valueTipo}==='0' ? 1000 : 
-                             ${jsonModelTipo>/valueTipo}==='1' ? 80   : 10000}" />     
+                    value="{employeesModel>/Amount}"                     
+                    min="{= ${employeesModel>/Type}==='0' ? 12000 : 
+                            ${employeesModel>/Type}==='1' ? 100 : 50000}"
+                    max="{= ${employeesModel>/Type}==='0' ? 80000 : 
+                            ${employeesModel>/Type}==='1' ? 2000  : 200000}"                      
+                    step="{= ${employeesModel>/Type}==='0' ? 10000 : 
+                             ${employeesModel>/Type}==='1' ? 500   : 20000}" />     
 
             <Label id="labelDaeCreation" labelFor="inputDateCreation" text="{i18n>textDateCreation}" required="true"/>
-            <DatePicker id="inputDateCreation" change="updateCreationDate" 
-                        valueState="{jsonModelTipo>/CreationDateState}"/>
+            <DatePicker id="inputDateCreation" change="dataValidation" dateValue="{employeesModel>/CreationDate}"
+                        valueState="{employeesModel>/CreationDateState}"/>
         </form:SimpleForm>            
     </Panel>
 </core:FragmentDefinition>

@@ -25,7 +25,7 @@
       "env": {
         "FIORI_TOOLS_UI5_URI": "https://ui5.sap.com",
         "DEBUG": "--inspect",
-        // "FIORI_TOOLS_URL_PARAMS": "sap-client=001&sap-ui-xx-viewCache=false",
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=001&sap-ui-xx-viewCache=false",
         "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/proyectofinal/proyectofinal\"}",
         "FIORI_TOOLS_BACKEND_CONFIG": "[{\"destination\":\"logaligroupERP\", \"path\":\"/sap\"}]"
       }

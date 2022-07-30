@@ -113,14 +113,7 @@
             "target": [
               "TargetWizardEmployees"
             ]
-          },
-          {
-            "name": "RouteRevision",
-            "pattern": "Revision",
-            "target": [
-              "TargetRevision"
-            ]
-          },
+          },          
           {
             "name": "RouteViewEmployees",
             "pattern": "ViewEmployees",

@@ -1,61 +1,99 @@
 sap.ui.define([
-    "proyectofinal/proyectofinal/controller/Base.controller",     
-    "sap/ui/model/json/JSONModel",
-    'sap/ui/core/Fragment'
+    "sap/ui/core/mvc/Controller",
+    'sap/ui/model/json/JSONModel',
+    'sap/m/MessageBox'
 ],
     /**
       * @param {typeof sap.ui.core.mvc.Controller, Fragment} Controller
       */
-    function (Base, JSONModel, Fragment) {
+    function (Controller, JSONModel, MessageBox) {
         'use strict';
-
+                
         function on_Init() {
-            
-            var oView = this.getView();
-            var oJSONModelTipo = new JSONModel({
-                valueTipo: ''
-            });
-            oView.setModel(oJSONModelTipo, "jsonModelTipo");
 
-            //this._bus = sap.ui.getCore().getEventBus();
-            //var oWizard = this.byId("createEmployees"); 
-            //  oWizard.setShowNextButton(false);
+            var oModel = new JSONModel();
+
+            oModel.setData({
+                FirstNameState: "None",
+                LastNameState: "None",
+                DniState: "None",
+                CreationDateState: "None",
+            });
+
+            this.getView().setModel(oModel, "employeesModel");
+            
         };
-       
+
         function on_MoveStepsDatos(oEvent) {
+            let createEmployeesWizard = this.byId("createEmployees");
             let oButtonI = this.getView().byId("btnTypeInterno");
             let oButtonA = this.getView().byId("btnTypeAutonomo");
-            let oWizard = this.byId("createEmployees");
-            let oFirstStep = oWizard.getSteps()[0];
-            let oCurrStep = this.getView().byId('dataEmployees');
-        
-            var oModel = this.getView().getModel("jsonModelTipo");             
+
+            var oModel = this.getView().getModel("employeesModel");
 
             if (oButtonI._buttonPressed === 0) {
-                oModel.setProperty("/valueTipo", '0');
+                oModel.setProperty("/Type", "0");
+                oModel.setProperty("/Amount", "24000");
             } else if (oButtonA._buttonPressed === 0) {
-                oModel.setProperty("/valueTipo", '1');
+                oModel.setProperty("/Type", "1");
+                oModel.setProperty("/Amount", "400");
             } else {
-                oModel.setProperty("/valueTipo", '2');
+                oModel.setProperty("/Type", "2");
+                oModel.setProperty("/Amount", "70000");
             };
-            //dataEmployeesModel._ValidateDate = false;
 
             oModel.refresh();
-            
-            oWizard.discardProgress(oFirstStep);
-            oWizard.setCurrentStep(oCurrStep);
+
+            if (createEmployeesWizard.getCurrentStep().includes("typeEmployees")) {
+                createEmployeesWizard.nextStep();
+            }
         };
 
-        function on_ValidateDni(oEvent) {
-            //            var inputDni = this.byId("inputDni");
-            var dni = oEvent.getParameter("value");
+        function additional_InfoValidation() {
+
+        };
+
+        function data_Validation(oEvent) {
+
+            var error = "";
+            var oView = this.getView();
+            var oModel = oEvent.getSource().getModel("employeesModel");
+
+            //Validamos que los Valores de Nombres no esten vacios            
+            var firstNameEmployees = oModel.getProperty("/FirstName");
+            var lastNameEmployees = oModel.getProperty("/LastName");
+
+            if (firstNameEmployees === "" || firstNameEmployees === undefined) {
+
+                oModel.setProperty("/FirstNameState", "Error");
+                error = "X";
+
+            } else {
+                oModel.setProperty("/FirstNameState", "None");
+            }
+
+            if (lastNameEmployees === "" || lastNameEmployees === undefined) {
+
+                oModel.setProperty("/LastNameState", "Error");
+                error = "X";
+
+            } else {
+
+                oModel.setProperty("/LastNameState", "None");
+
+            };
+
+            //Validamos el Valor de DNI y que el campo no este vacio
+
+            var oInputDni = oView.byId("inputDni");
+            var dni = oInputDni.getValue(); 
             var number;
             var letter;
             var letterList;
             var regularExp = /^\d{8}[a-zA-Z]$/;
 
-            let oModelTipo = oEvent.getSource().getModel("jsonModelTipo");
-            if (oModelTipo.oData.valueTipo !== '1') {
+            let employeesType = oModel.getProperty("/Type");
+            if (employeesType !== '1') {
                 //Se comprueba que el formato es válido
                 if (regularExp.test(dni) === true) {
 
@@ -65,73 +103,278 @@ sap.ui.define([
                     letterList = "TRWAGMYFPDXBNJZSQVHLCKET";
                     letterList = letterList.substring(number, number + 1);
                     if (letterList !== letter.toUpperCase()) {
-                        oModelTipo.setProperty("/DniState", 'Error');
+                        oModel.setProperty("/DniState", 'Error');
+                        error = "X";
+
                     } else {
-                        oModelTipo.setProperty("/DniState", 'None');
+                        oModel.setProperty("/DniState", 'None');                        
                     }
                 } else {
-                    oModelTipo.setProperty("/DniState", 'Error');
+                    oModel.setProperty("/DniState", 'Error');
+                    error = "X";
+
                 }
-                oModelTipo.refresh();
+            }
+            else {
+                if (dni === "" || dni === undefined) {
+
+                    oModel.setProperty("/DniState", "Error");
+                    error = "X";
+
+                } else {
+
+                    oModel.setProperty("/DniState", "None");
+
+                }
             };
-        };
 
-        function update_CreationDate(oEvent) {
+            //Validamos el formato de fecha y que el campo no este vacio
 
-            var oModelTipo = oEvent.getSource().getModel("jsonModelTipo");
+            var inputDateCreation = oView.byId("inputDateCreation");
+            var dateCreation = inputDateCreation.getValue();
 
-            if (!oEvent.getSource().isValidValue()) {
-                oModelTipo._ValidateDate = false;
-                oModelTipo.setProperty("/CreationDateState", 'Error');
+            if (dateCreation) {
+
+                if ((!oEvent.getSource().isValidValue() && oEvent.getSource().getValue() != "") || (oEvent.getSource().isValidValue() && oEvent.getSource().getValue() === "")) {
+
+                    oModel.setProperty("/CreationDateState", 'Error');
+                    error = "X";
+                } else {
+                    oModel.setProperty("/CreationDateState", 'None');
+
+                }
+            }
+            else {
+                oModel.setProperty("/CreationDateState", 'Error');
+                error = "X";
+            }
+
+            oModel.refresh();
+
+            var createEmployeesWizard = this.byId("createEmployees");
+            if (error === "X") {
+                createEmployeesWizard.invalidateStep(this.byId("dataEmployees"));
             } else {
-                oModelTipo._ValidateDate = true;
-                oModelTipo.setProperty("/CreationDateState", 'None');
+                createEmployeesWizard.validateStep(this.byId("dataEmployees"));
             };
-            oModelTipo.refresh();
 
         };
 
-        function additional_InfoValidation(){
+        function on_PressReview(oEvent) {
+
+            var oModel = this.getView().getModel("employeesModel");
+            var idNavContainer = this.byId("idWizardNavCont");
+
+
+            var files = "";
+            var oUploadCollection = this.byId("uploadCollection");
+
+            for (var i = 0; i < oUploadCollection.getItems().length; i++) {
+                files = files + " " + oUploadCollection.getItems()[i].getFileName();
+            }
+
+            oModel.setProperty("/Files", files);
+
+            idNavContainer.to(this.byId("idRevisionPage"));
 
         };
 
-        function datos_Validation(){
-          var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-          //  oRouter.navTo("RouteRevision");
+        function on_FileChange(oEvent) {
+
+            var oModel = this.getView().getModel("dataEmployeesModel");
+            let oUploadCollection = oEvent.getSource();
+
+            // Header Toker CSRF - Cross-Site RequestForgery
+            let oCustomerHeaderToken = new sap.m.UploadCollectionParameter({
+
+                name: "x-csrf-token",
+                value: oModel.getSecurityToken()
+            });
+
+            oUploadCollection.addHeaderParameter(oCustomerHeaderToken);
+
         };
+
+        function on_FileBeforeUploadStarts(oEvent) {
+
+            let fileName = oEvent.getParameter("fileName");
+            let sapId = this.getOwnerComponent().SapId;
+
+            let oCustomerHeaderSlug = new sap.m.UploadCollectionParameter({
+                name: "slug",
+                value: sapId + ";" + this._idemployees + ";" + fileName
+            });
+
+            oEvent.getParameters().addHeaderParameter(oCustomerHeaderSlug);
+
+        };
+
+        function on_CancelWizard() {
+
+            var oModel = this.getView().getModel("employeesModel");
+            var createEmployeesWizard = this.byId("createEmployees");
+            let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+
+            MessageBox["confirm"](oResourceBundle.getText("cancelMsgWizard"), {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: function (oAction) {
+                    if (oAction === MessageBox.Action.YES) {
+
+                        var oUploadCollection = this.byId("uploadCollection");
+
+                        oModel.setProperty("/FirstNameState", "Error");
+                        oModel.setProperty("/FirstName", "");
+                        oModel.setProperty("/LastNameState", "Error");
+                        oModel.setProperty("/LastName", "");
+                        oModel.setProperty("/DniState", "Error");
+                        oModel.setProperty("/Dni", "");
+                        oModel.setProperty("/CreationDateState", "Error");
+                        oModel.setProperty("/CreationDate", null);
+                        oModel.setProperty("/Comments", "");
+
+                        oUploadCollection.removeAllItems();
+
+                        createEmployeesWizard.discardProgress(this.byId("typeEmployees"));
+                        createEmployeesWizard.discardProgress(this.byId("dataEmployees"));
+                        createEmployeesWizard.invalidateStep(this.byId("typeEmployees"));
+
+                        this._navigationToStep(0);
+
+                        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                        oRouter.navTo("RouteMainView", true);
+                    }
+                }.bind(this),
+
+            });
+        };
+
+        function on_SaveWinzard(oEvent) {
+            var oModel = this.getView().getModel("employeesModel");
+            var createEmployeesWizard = this.byId("createEmployees");
+            let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+
+            MessageBox["confirm"](oResourceBundle.getText("saveMsgWizard"), {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: function (oAction) {
+                    if (oAction === MessageBox.Action.YES) {
+
+                        var valueType = oModel.getProperty("/Type");
+                        var valueFirstName = oModel.getProperty("/FirstName");
+                        var valueLastName = oModel.getProperty("/LastName");
+                        var valueDni = oModel.getProperty("/Dni");
+                        var valueAmount = oModel.getProperty("/Amount");
+                        var valueCreationDate = oModel.getProperty("/CreationDate");
+                        var valueComments = oModel.getProperty("/Comments");
+
+                        var body = {
+                            SapId: this.getOwnerComponent().SapId,
+                            Type: valueType,
+                            FirstName: valueFirstName,
+                            LastName: valueLastName,
+                            Dni: valueDni,
+                            CreationDate: valueCreationDate,
+                            Comments: valueComments,
+                            UserToSalary: [{
+                                Amount: parseFloat(valueAmount).toString(),
+                                Comments: valueComments,
+                                Waers: "EUR"
+                            }]
+                        }
+
+                        this.getView().getModel("dataEmployeesModel").create("/Users", body, {
+
+                            success: function (data) {
+
+                                this._idemployees = data.EmployeeId;
+
+                                var oUploadCollection = this.byId("uploadCollection");
+
+                                sap.m.MessageToast.show(oResourceBundle.getText("textSaveEmployees"));
+
+                                oModel.setProperty("/FirstNameState", "Error");
+                                oModel.setProperty("/FirstName", "");
+                                oModel.setProperty("/LastNameState", "Error");
+                                oModel.setProperty("/LastName", "");
+                                oModel.setProperty("/DniState", "Error");
+                                oModel.setProperty("/Dni", "");
+                                oModel.setProperty("/CreationDateState", "Error");
+                                oModel.setProperty("/CreationDate", null);
+                                oModel.setProperty("/Comments", "");
+
+                                oUploadCollection.upload();
+                                oUploadCollection.removeAllItems();
+
+                                createEmployeesWizard.discardProgress(this.byId("typeEmployees"));
+                                createEmployeesWizard.discardProgress(this.byId("dataEmployees"));
+                                createEmployeesWizard.invalidateStep(this.byId("typeEmployees"));
+                                
+                                this._navigationToStep(0);
+           
+
+                                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                                oRouter.navTo("RouteMainView", true);
+
+                            }.bind(this),
+
+                            error: function (e) {
+
+                                sap.m.MessageToast.show(oResourceBundle.getText("textSaveError"));
+
+                            }.bind(this)
+
+                        });
+
+                    }
+                }.bind(this),
+
+            });
+
+        };
+
+        function _navigationToStep(stepNumber) {
+            
+            var createEmployeesWizard = this.byId("createEmployees");
+            var idNavContainer = this.byId("idWizardNavCont");
+            var idWizardContentPage = this.byId("idWizardContentPage");
+
+            var afterNavigate = function () {
+
+                createEmployeesWizard.goToStep(createEmployeesWizard.getSteps()[stepNumber]);
+                idNavContainer.detachAfterNavigate(afterNavigate);
+            }.bind(this);
+
+            idNavContainer.attachAfterNavigate(afterNavigate);
+            idNavContainer.backToPage(idWizardContentPage.getId());
+
+        };
+
+        function on_EditPress(oEvent) {
+
+            let idLinkType = this.getView().byId("idLinkType").sId;
+            let idLinkData = this.getView().byId("idLinkData").sId;
+            let idLinkInfAd = this.getView().byId("idLinkInfAd").sId;
+
+            if (idLinkType === oEvent.getSource().sId) {
+                this._navigationToStep(0);
+            } else if (idLinkData === oEvent.getSource().sId) {
+                this._navigationToStep(1);
+            } else if (idLinkInfAd === oEvent.getSource().sId){
+                this._navigationToStep(2);
+            }          
+         };
         
-        function _onCreate(oEvent){
-
-        };
-
-       function on_PressReview(oEvent){
-            
-        var dataEmployeesModel = this.getView().getModel("dataEmployeesModel");
-
-        var oContext = dataEmployeesModel.createEntry("/Users", {
-            properties: {Type : "Laptop X", 
-                          FirstName:"New Laptop", 
-                          LastName:"1000", 
-                          Dni : "USD",
-                          CreationDate: "",
-                          Comments: ""}});    
-            
-            const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo("RouteRevision");
-         //, {
-         //       employeesPath: window.encodeURIComponent(oContext.getPath().substr(1))           
-         //   } );
-              
-        };
-
-           return Base.extend("proyectofinal.proyectofinal.controller.WizardEmployees", {
-            onInit: on_Init,            
+        return Controller.extend("proyectofinal.proyectofinal.controller.WizardEmployees", {
+            onInit: on_Init,
             onMoveStepsDatos: on_MoveStepsDatos,
-            onValidateDni: on_ValidateDni,
-            updateCreationDate: update_CreationDate,
+            onCancelWizard: on_CancelWizard,
+            onSaveWinzard: on_SaveWinzard,
             additionalInfoValidation: additional_InfoValidation,
-            datosValidation: datos_Validation,
-            onPressReview: on_PressReview       
-            
+            dataValidation: data_Validation,
+            onPressReview: on_PressReview,
+            onFileChange: on_FileChange,
+            onFileBeforeUploadStarts: on_FileBeforeUploadStarts,
+            _navigationToStep: _navigationToStep,
+            onEditPress: on_EditPress
         });
+
     });          

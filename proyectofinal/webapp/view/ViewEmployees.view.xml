@@ -2,17 +2,99 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
-    xmlns:f="sap.f">
+    xmlns:l="sap.f"
+    xmlns:common="sap.suite.ui.commons">
+
     <Page showHeader="false">
-        <content>
-            <f:FlexibleColumnLayout backgroundDesign="Translucent" layout="TwoColumnsMidExpanded">
-                <f:beginColumnPages>
-                    <mvc:XMLView id="masterEmployeesView" viewName="proyectofinal.proyectofinal.view.MasterEmployees"/>
-                </f:beginColumnPages>              
-                <f:midColumnPages>
-                    <mvc:XMLView id="employeesDetailsView" viewName="proyectofinal.proyectofinal.view.EmployeesDetails"/>
-                </f:midColumnPages>
-            </f:FlexibleColumnLayout>
-        </content>
-    </Page>    
+        <SplitContainer id="FormSplitscreen">
+            <masterPages >
+                <mvc:View id="masterEmployeesView" viewName="proyectofinal.proyectofinal.view.MasterEmployees" type="XML"/>
+            </masterPages>
+            <detailPages>
+                <Page id="idPageInitial">
+                    <FlexBox alignItems="Center" justifyContent="Center" height="100%">
+                        <Text text="{i18n>textSelectEmployee}"/>
+                    </FlexBox>
+                </Page>
+
+                <Page id="idPageDetail" title="{i18n>detalilsEmployees}">
+                    
+                    <Panel >
+                        <content>
+                            <FlexBox height="70px" alignItems="Start">
+                                <items>                                   
+                                    <core:Icon size="50px" 
+                                               class = "sapUiTinyMarginBeginEnd"
+                                               src="{= ${dataEmployeesModel>Type}==='0' ? 'sap-icon://employee-pane' :
+                                                       ${dataEmployeesModel>Type}==='1' ? 'sap-icon://employee'  : 
+                                                    ${dataEmployeesModel>Type}==='2' ? 'sap-icon://leads'  : '' }"                                              
+                                                />
+
+                                    <VBox>
+                                        <Text text= "{dataEmployeesModel>LastName} {dataEmployeesModel>FirstName}" class="boldText sapUiTinyMarginBeginEnd"/>
+                                        <Text text= "{dataEmployeesModel>Dni}" class= "sapUiTinyMarginBeginEnd"/>
+                                    </VBox>
+                                </items>
+                            </FlexBox>
+
+                            <FlexBox height="30px" alignItems="Start" justifyContent="SpaceBetween">
+                                <items>
+                                    <HBox>
+                                        <Text text= "{i18n>textDateCreation}:" class= "sapUiTinyMarginBeginEnd"/>
+                                        <Text text= "{path: 'dataEmployeesModel>CreationDate', 
+                                         type: 'sap.ui.model.type.Date',                                         
+                                         formatOptions: {
+					                               style : 'long'
+				                                            }
+                                         }"/>
+                                    </HBox>
+                                    <HBox >
+                                        <Text text= "{i18n>textComments}:" class= "sapUiTinyMarginBeginEnd"/>
+                                        <Text text= "{dataEmployeesModel>Comments}"/>
+                                    </HBox>
+                                </items>
+                            </FlexBox>
+
+                            <FlexBox alignItems="Start" justifyContent="SpaceBetween">
+                                <items>
+                                    <HBox >
+                                        <Text text= "{i18n>typeEmployees}:" class= "sapUiTinyMarginBeginEnd"/>
+                                        <Text text="{= ${dataEmployeesModel>Type}==='0' ? ${i18n>typeInterno} :
+                                           ${dataEmployeesModel>Type}==='1' ? ${i18n>typeAutonomo}  : 
+                                           ${dataEmployeesModel>Type}==='2' ? ${i18n>typeGerente} : '' }"/>
+                                    </HBox>
+                                </items>
+                            </FlexBox>
+                        </content>
+
+                    </Panel>
+
+                    <IconTabBar id="idIconTabBar" class="sapUiResponsiveContentPadding">
+                        <items>
+                            <IconTabFilter text= "{i18n>fichero}" icon="sap-icon://attachment" key="attachments" design="Horizontal">
+                                <UploadCollection id="uploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" sameFilenameAllowed="true" instantUpload="true" uploadUrl="sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments" change="onFileChange" uploadComplete="onFileUploadComplete" beforeUploadStarts="onFileBeforeUploadStarts" fileDeleted="onFileDeleted" />
+                            </IconTabFilter>
+                            <IconTabFilter text= "{i18n>historial}" icon="sap-icon://money-bills" key="history" design="Horizontal">
+                                <common:Timeline id="idTimeline" enableDoubleSided="true" content="{dataEmployeesModel>UserToSalary}" enableModelFilter="false" showTimeFilter="false" groupBy="CreationDate" sortOldestFirst="true" showSearch="false" showSort="false" showItemFilter="false">
+                                    <common:content>
+                                        <common:TimelineItem id="idTimelineItem" dateTime="{dataEmployeesModel>CreationDate}" title="{dataEmployeesModel>Amount}" text="{dataEmployeesModel>Comments}" />
+                                    </common:content>
+                                </common:Timeline>
+                            </IconTabFilter>
+                        </items>
+                    </IconTabBar>
+                    <footer>
+                        <Bar>
+                            <contentRight>
+                                <Button text="{i18n>unsubscribeEmployees}" press="unsubscribeEmployees" />
+                                <Button text="{i18n>ascendEmployees}" press="ascendEmployees" />
+                            </contentRight>
+                        </Bar>
+                    </footer>
+
+                </Page>
+            </detailPages>
+        </SplitContainer>
+    </Page>
+
 </mvc:View>          

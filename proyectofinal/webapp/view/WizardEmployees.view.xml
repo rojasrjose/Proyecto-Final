@@ -1,42 +1,55 @@
-   <mvc:View controllerName="proyectofinal.proyectofinal.controller.WizardEmployees"  
-   	xmlns:mvc="sap.ui.core.mvc"
-    xmlns:u="sap.ui.unified"
-    displayBlock="true"
-    xmlns="sap.m"
+<mvc:View controllerName="proyectofinal.proyectofinal.controller.WizardEmployees"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified" displayBlock="true"
+    xmlns="sap.m"    
     xmlns:core="sap.ui.core">
-        <NavContainer id="idWizardNavCont" >
-            <pages>
-                <Page id="idWizardContentPage" title="{i18n>wizardTitle}" showHeader="true">
-                    <content>
-                        <Wizard id="createEmployees" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
-                                complete="onPressReview" showNextButton="true"  finishButtonText="Review">
+    <NavContainer id="idWizardNavCont">
+        <pages>
+            <Page id="idWizardContentPage" title="{i18n>wizardTitle}" showHeader="true">
+                <content>
+                    <Wizard id="createEmployees" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" complete="onPressReview">
 
-                            <WizardStep id="typeEmployees" title="{i18n>typeEmployees}" validated="false" >
-                                <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoTypeEmployees}" showIcon="true"/> 
+                        <WizardStep id="typeEmployees" title="{i18n>typeEmployees}" validated="false">
+                            <MessageStrip class="sapUiSmallMarginBottom" text= "{i18n>infoTypeEmployees}" showIcon="true"/>
 
-                                <HBox alignItems="Center" justifyContent="Center" width="100%">                                    
-									<Button id="btnTypeInterno" text="{i18n>typeInterno}"   press="onMoveStepsDatos" />
-                                    <Button id="btnTypeAutonomo" text="{i18n>typeAutonomo}" press="onMoveStepsDatos" />
-                                    <Button id="btnTypeGerente" text="{i18n>typeGerente}"   press="onMoveStepsDatos" />                 
-								</HBox>
+                            <HBox alignItems="Center" justifyContent="Center" width="100%">
+                                <Button id="btnTypeInterno" text="{i18n>typeInterno}" press="onMoveStepsDatos" />
+                                <Button id="btnTypeAutonomo" text="{i18n>typeAutonomo}" press="onMoveStepsDatos" />
+                                <Button id="btnTypeGerente" text="{i18n>typeGerente}" press="onMoveStepsDatos" />
+                            </HBox>
 
-                            </WizardStep>
-                            <WizardStep id="dataEmployees" title="{i18n>dataEmployees}" validated="true" activate="datosValidation">                                
-                                <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.Datos" type="XML"/>
-                            </WizardStep>
-                            <WizardStep id="infoEmployees" title="{i18n>infoEmployees}" validated="true"  activate="additionalInfoValidation">                                
-                                <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.InformacionAdicional" type="XML"/>
-                            </WizardStep>
-                        </Wizard>   
-                     </content>
-                     <footer>
-                        <Toolbar>
-                            <ToolbarSpacer />
-                                <Button text="{i18n>cancelCreation}" press="onCancelWizard" class="sapUiTinyMarginBegin"/>
-                            </Toolbar>
-                    </footer>
-                </Page>
-            </pages>
-        </NavContainer> 
+                        </WizardStep>
+
+                        <WizardStep id="dataEmployees" title="{i18n>dataEmployees}" validated="false" activate="dataValidation">
+                            <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.Datos" type="XML"/>
+                        </WizardStep>
+                        
+                        <WizardStep id="infoEmployees" title="{i18n>infoEmployees}" validated="true" activate="additionalInfoValidation">
+                            <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.InformacionAdicional" type="XML"/>
+                        </WizardStep>
+                    </Wizard>
+                </content>
+                <footer>
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button text="{i18n>cancelCreation}" press="onCancelWizard" class="sapUiTinyMarginBegin"/>
+                    </Toolbar>
+                </footer>
+            </Page>
+
+            <Page id="idRevisionPage" title="{i18n>wizardTitle}" showHeader="true">
+                <content>
+                    <core:Fragment fragmentName="proyectofinal.proyectofinal.fragment.Revision" type="XML"/>
+                </content>
+                <footer>
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button text="{i18n>saveCreation}" press="onSaveWinzard" class="sapUiTinyMarginBegin"/>
+                        <Button text="{i18n>cancelCreation}" press="onCancelWizard" class="sapUiTinyMarginBegin"/>
+                    </Toolbar>
+                </footer>            
+            </Page>
+        </pages>
+    </NavContainer>
 </mvc:View>    
 

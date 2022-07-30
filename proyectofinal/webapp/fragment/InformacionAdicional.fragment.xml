@@ -7,20 +7,20 @@
         <form:SimpleForm editable="true" layout="ResponsiveGridLayout" class="sapUiSmallMarginBottom">
             <VBox >
                 <Label text="{i18n>textComments}" />
-                <TextArea value="{oDataEmployees>Comments}" growing="true" width="100%"/>
+                <TextArea value="{employeesModel>/Comments}" growing="true" width="100%"/>
             </VBox>
         </form:SimpleForm>
 
         <UploadCollection id="uploadCollection"
-                                  maximumFilenameLength="55"
-                                  maximumFileSize="10"
-                                  multiple="true"
-                                  sameFilenameAllowed="true"
-                                  instantUpload="true"
-                                  uploadUrl="sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
-                                  change="onFileChange"
-                                  uploadComplete="onFileUploadComplete"
-                                  beforeUploadStarts="onFileBeforeUploadStarts"
-                                  fileDeleted="onFileDeleted"/>
+                          maximumFilenameLength="55"
+                          maximumFileSize="10"
+                          multiple="true"
+                          sameFilenameAllowed="true"
+                          instantUpload="false"
+                          uploadUrl="sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
+                          change="onFileChange"
+                          uploadComplete="onFileUploadComplete"
+                          beforeUploadStarts="onFileBeforeUploadStarts"
+                          fileDeleted="onFileDeleted"/>
     </Panel>
 </core:FragmentDefinition>
