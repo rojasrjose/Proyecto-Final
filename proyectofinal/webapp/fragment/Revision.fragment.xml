@@ -9,7 +9,19 @@
                         <core:Title id="typeEmployeesV" text="{i18n>typeTEmployees}" />
                     </form:title>
                     <form:layout>
-                        <form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+                        <form:ResponsiveGridLayout labelSpanXL="3" 
+                                                   labelSpanL="3" 
+                                                   labelSpanM="3" 
+                                                   labelSpanS="12" 
+                                                   adjustLabelSpan="false" 
+                                                   emptySpanXL="4" 
+                                                   emptySpanL="4" 
+                                                   emptySpanM="4" 
+                                                   emptySpanS="0" 
+                                                   columnsXL="1" 
+                                                   columnsL="1" 
+                                                   columnsM="1" 
+                                                   singleContainerFullSize="false" />
                     </form:layout>
                     <form:formContainers>
                         <form:FormContainer>

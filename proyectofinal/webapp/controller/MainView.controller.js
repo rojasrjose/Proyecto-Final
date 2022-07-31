@@ -6,16 +6,14 @@ sap.ui.define([
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.model.json.JSONModel} JSONModel
      */    
-
     function (Controller, JSONModel) {
         'use strict';
 
          function on_Init() {                   
-           
+          
         };
 
-        function createEmployees(){           
-            
+        function createEmployees(){                   
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo("RouteWizard");
         };
@@ -23,7 +21,6 @@ sap.ui.define([
         function viewEmployees(){
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo("RouteViewEmployees");
-
         };
 
         return Controller.extend("proyectofinal.proyectofinal.controller.MainView", {

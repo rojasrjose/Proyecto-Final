@@ -66,9 +66,7 @@
                                 </items>
                             </FlexBox>
                         </content>
-
                     </Panel>
-
                     <IconTabBar id="idIconTabBar" class="sapUiResponsiveContentPadding">
                         <items>
                             <IconTabFilter text= "{i18n>fichero}" icon="sap-icon://attachment" key="attachments" design="Horizontal">
@@ -91,10 +89,8 @@
                             </contentRight>
                         </Bar>
                     </footer>
-
                 </Page>
             </detailPages>
         </SplitContainer>
     </Page>
-
 </mvc:View>          

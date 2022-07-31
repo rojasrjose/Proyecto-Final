@@ -25,6 +25,7 @@ sap.ui.define([
         };
 
         function on_MoveStepsDatos(oEvent) {
+
             let createEmployeesWizard = this.byId("createEmployees");
             let oButtonI = this.getView().byId("btnTypeInterno");
             let oButtonA = this.getView().byId("btnTypeAutonomo");
@@ -49,14 +50,12 @@ sap.ui.define([
             }
         };
 
-
         function data_Validation(oEvent) {
 
             var error = "";
             var oView = this.getView();
             var oModel = oEvent.getSource().getModel("employeesModel");
-
-            //Validamos que los Valores de Nombres no esten vacios            
+            
             var firstNameEmployees = oModel.getProperty("/FirstName");
             var lastNameEmployees = oModel.getProperty("/LastName");
 
@@ -79,9 +78,7 @@ sap.ui.define([
                 oModel.setProperty("/LastNameState", "None");
 
             };
-
-            //Validamos el Valor de DNI y que el campo no este vacio
-
+            
             var oInputDni = oView.byId("inputDni");
             var dni = oInputDni.getValue(); 
             var number;
@@ -161,7 +158,6 @@ sap.ui.define([
 
             var oModel = this.getView().getModel("employeesModel");
             var idNavContainer = this.byId("idWizardNavCont");
-
 
             var files = "";
             var oUploadCollection = this.byId("uploadCollection");

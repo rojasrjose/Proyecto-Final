@@ -14,11 +14,8 @@ sap.ui.define([
         'use strict';
 
         function onBeforeRendering() {
-
             this.getView().byId("employeesList").getBinding("items").refresh();
             this._bus.publish("flexible", "detailSplit", "");
-
-
         };
 
         function _onObjectMatched(oEvent) {
@@ -27,13 +24,10 @@ sap.ui.define([
 
             var oFilterSapId = new Filter("SapId",
                 sap.ui.model.FilterOperator.EQ, this.getOwnerComponent().SapId);
-            // manual filtering
+            
             this.getView().byId("employeesList").getBinding("items").filter(oFilterSapId);
 
             this._bus.publish("flexible", "detailSplit", "");
-        //    var splitApp = this.getView().byId("splitappid");
-        //    splitApp.to(this.getView().byId("detailtitlepageid"));
-
         };
 
         function onInit() {
@@ -41,8 +35,7 @@ sap.ui.define([
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.getRoute("RouteViewEmployees").attachPatternMatched(_onObjectMatched, this);
             
-            this._bus = sap.ui.getCore().getEventBus();
-            
+            this._bus = sap.ui.getCore().getEventBus();            
         };
 
         function onPressBack(oEvent){
@@ -76,7 +69,6 @@ sap.ui.define([
                     ],
                     and: false
                 });
-
                 employeesFilter.push(InputFilter);
             }
             employeesFilter.push(new Filter("SapId",FilterOperator.EQ, this.getOwnerComponent().SapId));
@@ -84,7 +76,6 @@ sap.ui.define([
             var oList = this.byId("employeesList");
             var oBinding = oList.getBinding("items");
             oBinding.filter(employeesFilter);
-
         };
 
         return Controller.extend("proyectofinal.proyectofinal.controller.MasterEmployees", {
