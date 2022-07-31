@@ -33,13 +33,13 @@ sap.ui.define([
 
             if (oButtonI._buttonPressed === 0) {
                 oModel.setProperty("/Type", "0");
-                oModel.setProperty("/Amount", "24000");
+                oModel.setProperty("/Amount", 24000);
             } else if (oButtonA._buttonPressed === 0) {
                 oModel.setProperty("/Type", "1");
-                oModel.setProperty("/Amount", "400");
+                oModel.setProperty("/Amount", 400);
             } else {
                 oModel.setProperty("/Type", "2");
-                oModel.setProperty("/Amount", "70000");
+                oModel.setProperty("/Amount", 70000);
             };
 
             oModel.refresh();
@@ -49,9 +49,6 @@ sap.ui.define([
             }
         };
 
-        function additional_InfoValidation() {
-
-        };
 
         function data_Validation(oEvent) {
 
@@ -367,8 +364,7 @@ sap.ui.define([
             onInit: on_Init,
             onMoveStepsDatos: on_MoveStepsDatos,
             onCancelWizard: on_CancelWizard,
-            onSaveWinzard: on_SaveWinzard,
-            additionalInfoValidation: additional_InfoValidation,
+            onSaveWinzard: on_SaveWinzard,       
             dataValidation: data_Validation,
             onPressReview: on_PressReview,
             onFileChange: on_FileChange,

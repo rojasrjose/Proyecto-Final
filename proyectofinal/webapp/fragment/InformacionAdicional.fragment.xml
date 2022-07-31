@@ -11,7 +11,7 @@
             </VBox>
         </form:SimpleForm>
 
-        <UploadCollection id="uploadCollection"
+        <UploadCollection id="uploadCollection"                          
                           maximumFilenameLength="55"
                           maximumFileSize="10"
                           multiple="true"

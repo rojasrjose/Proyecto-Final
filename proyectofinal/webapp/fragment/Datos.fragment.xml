@@ -4,7 +4,7 @@
     <Panel>        
         <form:SimpleForm editable="true" >
             <Label id="labelFirstName" labelFor="inputFirstName" text="{i18n>textFirstName}" required="true" />
-            <Input id="inputFirstName" value="{employeesModel>/FirstName}" change="dataValidation" valueState="{employeesModel>/FirstNameState}"  />
+            <Input id="inputFirstName" value="{employeesModel>/FirstName}" change="dataValidation" valueState="{employeesModel>/FirstNameState}"/>
 
             <Label id="labelLastName" labelFor="inputLastName" text="{i18n>textLastName}" required="true"/>
             <Input id="inputLastName" value="{employeesModel>/LastName}" change="dataValidation" valueState="{employeesModel>/LastNameState}"/>            
@@ -21,11 +21,11 @@
 		    <Slider id="inputAmount" enableTickmarks="true" class="sapUiLargeMarginBottom" width="100%"
                     value="{employeesModel>/Amount}"                     
                     min="{= ${employeesModel>/Type}==='0' ? 12000 : 
-                            ${employeesModel>/Type}==='1' ? 100 : 50000}"
+                            ${employeesModel>/Type}==='1' ? 100 : 50000 }"
                     max="{= ${employeesModel>/Type}==='0' ? 80000 : 
-                            ${employeesModel>/Type}==='1' ? 2000  : 200000}"                      
-                    step="{= ${employeesModel>/Type}==='0' ? 10000 : 
-                             ${employeesModel>/Type}==='1' ? 500   : 20000}" />     
+                            ${employeesModel>/Type}==='1' ? 2000  : 200000 }"                      
+                    step="{= ${employeesModel>/Type}==='0' ? 2000 : 
+                             ${employeesModel>/Type}==='1' ? 80  : 5000 }" />     
 
             <Label id="labelDaeCreation" labelFor="inputDateCreation" text="{i18n>textDateCreation}" required="true"/>
             <DatePicker id="inputDateCreation" change="dataValidation" dateValue="{employeesModel>/CreationDate}"
